@@ -19,3 +19,12 @@ curl -Lo minikube "https://storage.googleapis.com/minikube/releases/v0.25.0/mini
 chmod +x minikube
 
 mv minikube $INSTALL_PATH
+
+if [ -z $(get_version "kubectl version") ]; then
+    exit 1
+fi
+
+
+if [ -z $(get_version "minikube version") ]; then
+    exit 1
+fi

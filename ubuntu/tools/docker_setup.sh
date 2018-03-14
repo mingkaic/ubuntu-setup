@@ -33,3 +33,8 @@ fi
 
 curl -L https://github.com/docker/machine/releases/download/v0.13.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine && \
 install /tmp/docker-machine /usr/local/bin/docker-machine
+
+if [ -z $(get_version "docker version") ]; then
+    exit 1
+fi
+
