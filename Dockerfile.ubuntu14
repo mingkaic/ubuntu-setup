@@ -9,6 +9,13 @@ RUN bash ubuntu/app_setup.sh
 RUN bash ubuntu/tools/docker_setup.sh
 RUN bash ubuntu/tools/mkube_setup.sh
 RUN bash ubuntu/tools/nvm_setup.sh
+RUN bash ubuntu/tools/cmake_setup.sh
+
+RUN bash ubuntu/tools/compilers/gcc_setup.sh
+RUN bash ubuntu/tools/compilers/protoc_setup.sh
+
+RUN bash ubuntu/tools/buildtools/grunt_setup.sh
+RUN bash ubuntu/tools/buildtools/ngype_setup.sh
 
 RUN bash ubuntu/langs/go_setup.sh
 RUN bash ubuntu/langs/java_setup.sh
