@@ -5,11 +5,21 @@
 #
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-source $THIS_DIR/../../utils/common.sh
+source $THIS_DIR/../utils/common.sh
 
 root_check
 
-apt-get update && apt-get install -y autoconf automake libtool curl make g++ unzip
+set -e
+
+apt-get update
+apt-get install -y \
+    autoconf \
+    automake \
+    libtool \
+    curl \
+    make \
+    g++ \
+    unzip
 
 TAR=protobuf-all-3.5.1.tar.gz
 

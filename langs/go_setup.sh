@@ -9,6 +9,8 @@ source $THIS_DIR/../utils/common.sh
 
 root_check
 
+set -e
+
 apt install -y software-properties-common
 add-apt-repository -y ppa:hnakamur/golang-1.10
 apt update
@@ -24,7 +26,3 @@ source ~/.bashrc
 if [ -z $(get_version "go version") ]; then
     exit 1
 fi
-
-add-apt-repository -y ppa:masterminds/glide
-apt-get update
-apt-get install -y glide

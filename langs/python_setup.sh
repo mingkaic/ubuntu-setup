@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # purpose:
-# this script install docker
+# this script install python
 #
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";

@@ -1,0 +1,26 @@
+sudo: required
+
+services:
+  - docker
+
+jobs:
+  include:
+    - stage: build docker image
+      script:
+        - git checkout ${TRAVIS_BRANCH}
+        - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+        - docker build -t $DOCKER_USERNAME/ubuntu-setup-test:latest -f Dockerfile.test .
+        - docker images
+        - docker push $DOCKER_USERNAME/ubuntu-setup-test:latest
+    - stage: test
+      script:
+        - docker run -e COVERALLS_TOKEN=${COVERALLS_TOKEN}
+          --rm $DOCKER_USERNAME/ubuntu-setup-test:latest
+
+notifications:
+  email: false
+
+# safelist
+branches:
+  only:
+  - master
