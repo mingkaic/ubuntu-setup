@@ -1,23 +1,34 @@
 #!/usr/bin/env bash
+#
+# purpose:
+# this script install pyenv
+#
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-source $THIS_DIR/../utils/utils.sh
+source $THIS_DIR/../utils/common.sh
 
-apt-get install -y git \
-    python-pip \
-    make \
-    build-essential \
-    libssl-dev \
-    zlib1g-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev
-pip install virtualenvwrapper
+root_check
 
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git ~/.pyenv/plugins/pyenv-virtualenvwrapper
+if [ -z $(get_version "python -V") ]; then
+    echo "python must be installed"
+    exit 1
+fi
 
-add_env_var PYENV_ROOT "\$HOME/.pyenv"
-add_PATH "\$PYENV_ROOT/bin"
-echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-echo 'pyenv virtualenvwrapper' >> ~/.bashrc
+yes | pip install virtualenvwrapper
+
+PYENV=~/.pyenv
+
+if [ ! -d "$PYENV" ]; then
+    git clone https://github.com/pyenv/pyenv.git $PYENV
+    request_save_profile "export PYENV_ROOT=$PYENV\nexport PATH=\$PATH:\$PYENV_ROOT/bin"
+
+    source ~/.bashrc
+
+    git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+    request_save_profile "eval "$(pyenv init -)""
+fi
+
+source ~/.bashrc
+if [ -z $(get_version "python -V") ]; then
+    exit 1
+fi

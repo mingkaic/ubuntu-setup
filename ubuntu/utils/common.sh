@@ -4,8 +4,19 @@
 # this script defines popular functions
 #
 
+function timestamp {
+  date +"%T"
+}
+
+function root_check {
+	if [ "$EUID" -ne 0 ]; then
+		echo "Please run as root"
+		exit
+	fi
+}
+
 # executes command CMD if required REQ_VER is greater than CUR_VER
-function meets_version() {
+function meets_version {
 	REQ_VER=$1;
 	CUR_VER=$2;
 	CMD=${@:3:$#-2};
@@ -17,14 +28,19 @@ function meets_version() {
 	fi
 }
 
-function get_version() {
-	eval "$1" | grep -E -o "([0-9]{1,}\.)+[0-9]{1,}"
+function get_version {
+	eval "$1" | grep -E -o -m 1 "([0-9]{1,}\.)+[0-9]{1,}"
 }
 
-function add_env_var() {
-	echo "export $1=$2" >> ~/.bashrc
+function request_save_profile {
+	backup ~/.bashrc bashrc
+	save_profile $@
 }
 
-function add_PATH() {
-	echo "export PATH=$1:$PATH"
+function save_profile {
+	printf $@ >> ~/.bashrc
+}
+
+function backup {
+	cp $1 $HOME/cfg-backup/$2-$(timestamp)
 }

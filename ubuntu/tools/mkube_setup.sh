@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+#
+# purpose:
+# this script install minikube and dependencies
+#
+
+THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
+source $THIS_DIR/../utils/common.sh
+
+root_check
 
 INSTALL_PATH=/usr/local/bin/
 
@@ -20,7 +29,7 @@ chmod +x minikube
 
 mv minikube $INSTALL_PATH
 
-if [ -z $(get_version "kubectl version") ]; then
+if [ -z $(get_version "kubectl version -c") ]; then
     exit 1
 fi
 

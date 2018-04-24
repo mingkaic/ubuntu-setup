@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
+#
+# purpose:
+# this script runs general performance enhancing techniques on Ubuntu 
+#
 
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit
-fi
+THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $THIS_DIR/common.sh
+
+root_check
 
 # turn down swappiness
 sysctl vm.swappiness=10

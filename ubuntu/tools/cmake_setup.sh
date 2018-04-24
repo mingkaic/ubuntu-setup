@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
+#
+# purpose:
+# this script install cmake
+#
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-source $THIS_DIR/../../utils/utils.sh
+source $THIS_DIR/../../utils/common.sh
 
 # make these parameterized later?
 REQ_CMAKE_VER="3.8.2";

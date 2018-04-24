@@ -1,7 +1,13 @@
 #!/usr/bin/env
+#
+# purpose:
+# this script install g++ compiler supporting c++11
+#
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-source $THIS_DIR/../../utils/utils.sh
+source $THIS_DIR/../../utils/common.sh
+
+root_check
 
 # make these parameterized later?
 REQ_GCC_VER="6.0.0";

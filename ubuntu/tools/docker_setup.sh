@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
+#
+# purpose:
+# this script install docker
+#
 
-apt-get remove docker docker-engine docker.io
+THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
+source $THIS_DIR/../utils/common.sh
+
+root_check
 
 # install docker engine
 
 apt-get update
 
-apt-get install \
+apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -32,7 +39,8 @@ apt-get install -y docker-ce
 # configure docker as root
 
 if [ -n "$USER" ]; then
-    usermod -aG docker "$USER"
+    gpasswd -aG docker "$USER"
+    newgrp docker
 fi
 
 # install docker machine
@@ -43,4 +51,3 @@ install /tmp/docker-machine /usr/local/bin/docker-machine
 if [ -z $(get_version "docker version") ]; then
     exit 1
 fi
-

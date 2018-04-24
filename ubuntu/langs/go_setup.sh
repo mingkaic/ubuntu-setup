@@ -1,27 +1,30 @@
 #!/usr/bin/env bash
+#
+# purpose:
+# this script install golang
+#
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-source $THIS_DIR/../utils/utils.sh
+source $THIS_DIR/../utils/common.sh
 
-GO_TAR=go1.10.linux-amd64.tar.gz
-INSTALL_PATH=/usr/local
+root_check
 
-wget https://dl.google.com/go/$GO_TAR
-tar -C $INSTALL_PATH -xzf $GO_TAR
+apt install -y software-properties-common
+add-apt-repository -y ppa:hnakamur/golang-1.10
+apt update
+apt install -y golang-go golang-1.10-doc
 
-GOROOT=$INSTALL_PATH/go
-GOPATH=$HOME/go
+mkdir -p $HOME/Developer/go/bin
+mkdir -p $HOME/Developer/go/pkg
+mkdir -p $HOME/Developer/go/src
 
-# save these environment variables to .bashrc
-add_env_var GOROOT $GOROOT
-add_env_var GOPATH $GOPATH
-add_PATH "\$GOROOT"
-add_PATH "\$GOPATH"
+request_save_profile "export GOPATH=\$HOME/Developer/go\nexport PATH=\$PATH:\$GOPATH/bin"
 
 source ~/.bashrc
 if [ -z $(get_version "go version") ]; then
     exit 1
 fi
 
-# install glide as well
-curl http://glide.sh/get | sh
+add-apt-repository -y ppa:masterminds/glide
+apt-get update
+apt-get install -y glide
