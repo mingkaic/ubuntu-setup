@@ -7,6 +7,8 @@
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 source $THIS_DIR/../../utils/common.sh
 
+root_check
+
 # make these parameterized later?
 REQ_CMAKE_VER="3.8.2";
 
