@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
 
-RUN mkdir -P /tmp/msyscfg
+RUN mkdir -p /tmp/msyscfg
 COPY . /tmp/msyscfg
 WORKDIR /tmp/msyscfg
