@@ -9,6 +9,8 @@ source $THIS_DIR/utils/common.sh
 
 root_check
 
+set -e
+
 # apt installer
 apt-get update
 apt-get -qq update

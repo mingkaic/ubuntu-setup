@@ -9,4 +9,14 @@ source $THIS_DIR/../../utils/common.sh
 
 root_check
 
+set -e
+
+if [ -z $(get_version "node -v") ]; then
+    exit 1
+fi
+
 npm install -g node-gyp
+
+if [ -z $(get_version "node-gyp -v") ]; then
+    exit 1
+fi

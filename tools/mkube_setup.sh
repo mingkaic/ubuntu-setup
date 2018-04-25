@@ -9,6 +9,8 @@ source $THIS_DIR/../utils/common.sh
 
 root_check
 
+set -e
+
 INSTALL_PATH=/usr/local/bin/
 
 # install kubectl
@@ -19,7 +21,7 @@ chmod +x kubectl
 mv kubectl $INSTALL_PATH
 
 # install virtualbox
-
+apt-get update
 apt-get install -y virtualbox
 
 # install minikube

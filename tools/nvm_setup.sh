@@ -9,11 +9,26 @@ source $THIS_DIR/../utils/common.sh
 
 root_check
 
+set -e
+
 apt-get update
-apt-get install -y build-essential libssl-dev
+apt-get install -y \
+    build-essential \
+    libssl-dev \
+    wget
+
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
-source ~/.profile
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 if [ -z $(get_version "nvm --version") ]; then
+    exit 1
+fi
+
+nvm install 9.0.0
+
+if [ -z $(get_version "node -v") ]; then
     exit 1
 fi

@@ -9,6 +9,7 @@ source $THIS_DIR/../utils/common.sh
 
 root_check
 
+apt-get update
 apt-get install -y \
     git make \
     build-essential \
@@ -21,4 +22,7 @@ apt-get install -y \
     libsqlite3-dev
 
 easy_install pip
-yes | pip install --upgrade pip
+
+if [ -z $(get_version "python --version 2>&1") ]; then
+    exit 1
+fi

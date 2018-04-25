@@ -9,17 +9,18 @@ source $THIS_DIR/../utils/common.sh
 
 root_check
 
+set -e
+
 # install docker engine
 
 apt-get update
-
 apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
     software-properties-common
 
-curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | sudo apt-key add -
+curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | apt-key add -
 
 DOCKER_VERIFY=$(apt-key fingerprint | grep docker)
 if [ -z "$DOCKER_VERIFY" ]; then
@@ -33,7 +34,6 @@ add-apt-repository \
    stable"
 
 apt-get update
-
 apt-get install -y docker-ce
 
 # configure docker as root

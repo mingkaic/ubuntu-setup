@@ -42,5 +42,7 @@ function save_profile {
 }
 
 function backup {
-	cp $1 $HOME/cfg-backup/$2-$(timestamp)
+	if [ ! -z "$CFG_BACKUP" ]; then
+		cp $1 $CFG_BACKUP/$2-$(timestamp)
+	fi
 }

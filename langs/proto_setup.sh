@@ -19,21 +19,24 @@ apt-get install -y \
     curl \
     make \
     g++ \
-    unzip
+    unzip \
+    wget
 
-TAR=protobuf-all-3.5.1.tar.gz
-
+TAR=v3.5.1.tar.gz
+TMP_TAR=/tmp/$TAR
 if [ ! -d $TMP_TAR ]; then
-    wget -P $TMP_TAR https://github.com/google/protobuf/releases/download/v3.5.1/$TAR
-    tar -xzf $TMP_TAR
+    wget https://github.com/google/protobuf/archive/$TAR -O $TMP_TAR
+    tar -xzf $TMP_TAR -C /tmp
 fi
 
-# ./autogen.sh
-# ./configure
-# make
-# make check
-# make install
-# ldconfig # refresh shared library cache.
+pushd /tmp/protobuf-3.5.1
+./autogen.sh
+./configure
+make
+make check
+make install
+ldconfig # refresh shared library cache.
+popd
 
 if [ -z $(get_version "protoc --version") ]; then
     exit 1

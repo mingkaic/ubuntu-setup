@@ -17,6 +17,8 @@ fi
 set -e
 
 # install glide as well
+apt-get update
+apt-get install -y software-properties-common
 add-apt-repository -y ppa:masterminds/glide
 apt-get update
 apt-get install -y glide

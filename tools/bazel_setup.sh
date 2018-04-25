@@ -5,6 +5,8 @@ source $THIS_DIR/../utils/common.sh
 
 root_check
 
+set -e
+
 INSTALLER=bazel-0.12.0-installer-linux-x86_64.sh
 TMP_INSTALLER=/tmp/$INSTALLER
 

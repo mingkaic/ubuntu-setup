@@ -9,4 +9,7 @@ source $THIS_DIR/../utils/common.sh
 
 root_check
 
+set -e
+
+apt-get update
 apt install -y git-all

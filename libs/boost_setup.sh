@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # purpose:
-# this script install java
+# this script install boost
 #
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
@@ -9,10 +9,7 @@ source $THIS_DIR/../utils/common.sh
 
 root_check
 
-wget 'https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2/download'
-tar -xf download
+set -e
 
-cd boost_1_64_0
-./bootstrap.sh
-./bjam install
-ldconfig
+apt-get update
+apt-get install -y libboost-all-dev
