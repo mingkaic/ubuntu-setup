@@ -22,3 +22,7 @@ wget https://github.com/bazelbuild/bazel/releases/download/0.12.0/$INSTALLER -O 
 
 chmod +x $TMP_INSTALLER
 $TMP_INSTALLER
+
+if [ -z $(get_version "bazel version") ]; then
+    exit 1
+fi

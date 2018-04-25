@@ -11,11 +11,14 @@ root_check
 
 set -e
 
+apt-get update
+apt-get install -y \
+    software-properties-common
 apt-add-repository ppa:webupd8team/java
 apt-get update
-apt-get install oracle-java8-installer
+apt-get install -y oracle-java8-installer
 
-add_env_var JAVA_HOME /usr/lib/jvm/java-8-oracle
+request_save_profile "export JAVA_HOME=/usr/lib/jvm/java-8-oracle"
 
 source ~/.bashrc
 if [ -z $(get_version "java -version 2>&1 > /dev/null") ]; then

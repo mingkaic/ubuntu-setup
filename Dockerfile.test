@@ -5,9 +5,9 @@ COPY . /tmp/test
 
 #RUN bash common_setup.sh
 
-RUN bash langs/clang_setup.sh
+#RUN bash langs/clang_setup.sh
 #RUN bash langs/gcc_setup.sh
-#RUN bash langs/go_setup.sh
+RUN bash langs/go_setup.sh
 #RUN bash langs/java_setup.sh
 #RUN bash langs/proto_setup.sh
 #RUN bash langs/python_setup.sh

@@ -32,3 +32,7 @@ function setup() {
 }
 
 meets_version "$REQ_CMAKE_VER" "$CUR_CMAKE_VER" setup $REQ_CMAKE_VER;
+
+if [ -z $(get_version "cmake --version") ]; then
+    exit 1
+fi

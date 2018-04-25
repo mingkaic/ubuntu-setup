@@ -20,9 +20,22 @@ CUR_GPP_VER="$( g++ -dumpversion )";
 set -e
 
 apt-get update
-meets_version "$REQ_GCC_VER" "$CUR_GCC_VER" "apt-get install -y gcc-6 && rm /usr/bin/gcc && mv /usr/bin/gcc-6 /usr/bin/gcc";
-meets_version "$REQ_GPP_VER" "$CUR_GPP_VER" "apt-get install -y g++-6 && rm /usr/bin/g++ && mv /usr/bin/g++-6 /usr/bin/g++";
+apt-get install -y \
+    build-essential \
+    software-properties-common
+add-apt-repository -y ppa:ubuntu-toolchain-r/test
+apt-get update
+apt-get install -y gcc-snapshot
+apt-get update
+meets_version "$REQ_GCC_VER" "$CUR_GCC_VER" \
+    apt-get install -y gcc-6 && rm /usr/bin/gcc && mv /usr/bin/gcc-6 /usr/bin/gcc
+meets_version "$REQ_GPP_VER" "$CUR_GPP_VER" \
+    apt-get install -y g++-6 && rm /usr/bin/g++ && mv /usr/bin/g++-6 /usr/bin/g++
 
-if [ -z $(get_version "gcc -v") ]; then
+if [ -z $(get_version "gcc -v 2>&1") ]; then
+    exit 1
+fi
+
+if [ -z $(get_version "g++ -v 2>&1") ]; then
     exit 1
 fi

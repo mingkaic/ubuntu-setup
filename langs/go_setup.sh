@@ -11,10 +11,12 @@ root_check
 
 set -e
 
-apt install -y software-properties-common
+apt-get update
+apt-get install -y \
+    software-properties-common
 add-apt-repository -y ppa:hnakamur/golang-1.10
-apt update
-apt install -y golang-go golang-1.10-doc
+apt-get update
+apt-get install -y golang-go golang-1.10-doc
 
 mkdir -p $HOME/Developer/go/bin
 mkdir -p $HOME/Developer/go/pkg
