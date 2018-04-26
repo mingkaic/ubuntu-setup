@@ -8,10 +8,14 @@ COPY . /tmp/test
 
 #RUN bash langs/clang_setup.sh
 #RUN bash langs/gcc_setup.sh
-#RUN bash langs/go_setup.sh
 #RUN bash langs/java_setup.sh
 #RUN bash langs/proto_setup.sh
+
 RUN bash langs/python_setup.sh
+RUN bash tools/pyenv_setup.sh
+
+#RUN bash langs/go_setup.sh
+#RUN bash tools/glide_setup.sh
 
 #RUN bash libs/boost_setup.sh
 #RUN bash libs/llvm_setup.sh
@@ -23,10 +27,8 @@ RUN bash langs/python_setup.sh
 #RUN bash tools/cmake_setup.sh
 #RUN bash tools/docker_setup.sh
 #RUN bash tools/mkube_setup.sh
-#RUN bash tools/nvm_setup.sh
-RUN bash tools/pyenv_setup.sh
-#RUN bash tools/glide_setup.sh
 
+#RUN bash tools/nvm_setup.sh
 #RUN bash tools/buildtools/grunt_setup.sh
 #RUN bash tools/buildtools/ngyp_setup.sh
 

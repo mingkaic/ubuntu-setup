@@ -16,4 +16,4 @@ mkdir -p $HOME/Tools
 mkdir -p $HOME/cfg-backup
 
 export CFG_BACKUP=$HOME/cfg-backup
-request_save_profile "export CFG_BACKUP=\$HOME/cfg-backup"
+request_save_profile "export CFG_BACKUP=\"\$HOME/cfg-backup\""

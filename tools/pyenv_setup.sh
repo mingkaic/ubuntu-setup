@@ -25,14 +25,13 @@ PYENV=$HOME/.pyenv
 
 if [ ! -d "$PYENV" ]; then
     curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-    request_save_profile "export PYENV_ROOT=$PYENV\nexport PATH=\$PATH:\$PYENV_ROOT/bin\neval "$(pyenv init -)""
-    source ~/.bash_profile
-    
-    git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
-    request_save_profile "eval "$(pyenv virtualenv-init -)""
+    request_save_profile "export PATH=\"$PYENV/bin:\$PATH\""
+    request_save_profile "eval \"\$(pyenv init -)\"\neval \"\$(pyenv virtualenv-init -)\""
 fi
 
-# source ~/.bashrc
-# if [ -z $(get_version "pyenv -V") ]; then
+cat ~/.bashrc
+source ~/.bashrc
+pyenv --version
+# if [ -z $(get_version "pyenv --version") ]; then
 #     exit 1
 # fi

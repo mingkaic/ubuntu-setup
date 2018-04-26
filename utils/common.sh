@@ -34,11 +34,11 @@ function get_version {
 
 function request_save_profile {
 	backup ~/.bashrc bashrc
-	save_profile $@
+	save_profile "$@"
 }
 
 function save_profile {
-	printf $@ >> ~/.bashrc
+	printf "$@\n" >> ~/.bashrc
 }
 
 function backup {

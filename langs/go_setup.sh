@@ -22,7 +22,7 @@ mkdir -p $HOME/Developer/go/bin
 mkdir -p $HOME/Developer/go/pkg
 mkdir -p $HOME/Developer/go/src
 
-request_save_profile "export GOPATH=\$HOME/Developer/go\nexport PATH=\$PATH:\$GOPATH/bin"
+request_save_profile "export GOPATH=\"\$HOME/Developer/go\"\nexport PATH=\"\$GOPATH/bin:\$PATH\""
 
 source ~/.bashrc
 if [ -z $(get_version "go version") ]; then
