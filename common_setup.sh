@@ -5,7 +5,7 @@
 #
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-source $THIS_DIR/utils/common.sh
+source "$THIS_DIR/utils/common.sh"
 
 root_check
 

@@ -5,7 +5,7 @@
 #
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-source $THIS_DIR/../utils/common.sh
+source "$THIS_DIR/../utils/common.sh"
 
 root_check
 
@@ -29,9 +29,10 @@ if [ ! -d "$PYENV" ]; then
     request_save_profile "eval \"\$(pyenv init -)\"\neval \"\$(pyenv virtualenv-init -)\""
 fi
 
-cat ~/.bashrc
-source ~/.bashrc
-pyenv --version
-# if [ -z $(get_version "pyenv --version") ]; then
-#     exit 1
-# fi
+export PATH="$PYENV/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+if [ -z $(get_version "pyenv --version") ]; then
+    exit 1
+fi

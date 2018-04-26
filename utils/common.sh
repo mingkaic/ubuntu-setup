@@ -5,7 +5,7 @@
 #
 
 function timestamp {
-  date +"%T"
+	date +"%T"
 }
 
 function root_check {

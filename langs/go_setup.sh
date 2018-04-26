@@ -5,7 +5,7 @@
 #
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-source $THIS_DIR/../utils/common.sh
+source "$THIS_DIR/../utils/common.sh"
 
 root_check
 
@@ -22,9 +22,10 @@ mkdir -p $HOME/Developer/go/bin
 mkdir -p $HOME/Developer/go/pkg
 mkdir -p $HOME/Developer/go/src
 
+export GOPATH="$HOME/Developer/go"
+export PATH="$GOPATH/bin:$PATH"
 request_save_profile "export GOPATH=\"\$HOME/Developer/go\"\nexport PATH=\"\$GOPATH/bin:\$PATH\""
 
-source ~/.bashrc
 if [ -z $(get_version "go version") ]; then
     exit 1
 fi
