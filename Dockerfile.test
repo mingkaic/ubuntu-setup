@@ -3,34 +3,36 @@ FROM ubuntu:16.04
 WORKDIR /tmp/test
 COPY . /tmp/test
 
-RUN bash common_setup.sh
-RUN bash dev_setup.sh
+RUN bash common_setup.sh > null
+RUN bash dev_setup.sh > null
 
-RUN bash langs/clang_setup.sh
-RUN bash langs/gcc_setup.sh
-RUN bash langs/java_setup.sh
-RUN bash langs/proto_setup.sh
+RUN bash langs/clang_setup.sh > null
+RUN bash langs/gcc_setup.sh > null
+RUN bash langs/java_setup.sh > null
+RUN bash langs/proto_setup.sh > null
 
-RUN bash langs/python_setup.sh
-RUN bash tools/pyenv_setup.sh
+RUN bash langs/python_setup.sh > null
+RUN bash tools/pyenv_setup.sh > null
 
-RUN bash langs/go_setup.sh
-RUN bash tools/glide_setup.sh
+RUN bash langs/go_setup.sh > null
+RUN bash tools/glide_setup.sh > null
 
-RUN bash libs/boost_setup.sh
-RUN bash libs/llvm_setup.sh
-RUN bash libs/opencv_setup.sh
-RUN bash libs/opengl_setup.sh
-RUN bash libs/swig_setup.sh
+RUN bash libs/boost_setup.sh > null
+RUN bash libs/llvm_setup.sh > null
+RUN bash libs/opencv_setup.sh > null
+RUN bash libs/opengl_setup.sh > null
+RUN bash libs/swig_setup.sh > null
 
-RUN bash tools/bazel_setup.sh
-RUN bash tools/cmake_setup.sh
-RUN bash tools/docker_setup.sh
-RUN bash tools/mkube_setup.sh
+RUN bash tools/bazel_setup.sh > null
+RUN bash tools/cmake_setup.sh > null
+RUN bash tools/docker_setup.sh > null
+RUN bash tools/mkube_setup.sh > null
 
-RUN bash tools/nvm_setup.sh
-RUN bash tools/buildtools/grunt_setup.sh
-RUN bash tools/buildtools/ngyp_setup.sh
+RUN bash tools/nvm_setup.sh > null
+RUN bash tools/buildtools/grunt_setup.sh > null
+RUN bash tools/buildtools/ngyp_setup.sh > null
 
-RUN bash tests/prep.sh
-RUN python configs/configure.py tests/fake.yaml
+RUN bash tests/prep.sh > null
+RUN python configs/configure.py tests/fake.yaml > null
+
+CMD [ "python", "tests/verify.py" ]
