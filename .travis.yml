@@ -18,7 +18,11 @@ jobs:
           --rm $DOCKER_USERNAME/ubuntu-setup-test:latest
 
 notifications:
-  email: false
+  email:
+    recipients:
+      - mingkaichen2009@gmail.com
+    on_success: never
+    on_failure: always
 
 # safelist
 branches:
