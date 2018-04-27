@@ -5,9 +5,11 @@
 #
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $THIS_DIR/../utils/common.sh
+source "$THIS_DIR/../utils/common.sh"
 
 root_check
+
+set -e
 
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg

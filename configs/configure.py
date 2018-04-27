@@ -4,22 +4,18 @@ import os
 import subprocess
 import time
 
-supported_actions = {
-	"add": add2Dest,
-	"append": append2Dest,
-	"prepend": prepend2Dest,
-	"eval": evalCmd,
-}
-
 BACKUP_DIR = "~/cfg-backup"
 if "CFG_BACKUP" in os.environ:
 	BACKUP_DIR = os.environ["CFG_BACKUP"]
 
 def confirmPath(path):
-	if not os.path.exists(path):
-		os.makedirs(path)
+	dir = os.path.dirname(path)
+	if not os.path.exists(dir):
+		os.mkdir(dir)
 
 def backup(path):
+	if not (os.path.exists(BACKUP_DIR) and os.path.exists(path)):
+		return # don't backup
 	dest = os.path.join(BACKUP_DIR, os.path.basename(path) + str(time.time()))
 	with open(path, "r") as src:
 		with open(dest, "w") as dest:
@@ -32,9 +28,9 @@ def add2Dest(cmd):
 		raise Exception("invalid add: no destination")
 
 	source = cmd["source"]
-	destination = cmd["destination"]
-	backup(destination)
+	destination = cmd["dest"]
 	confirmPath(destination)
+	backup(destination)
 	with open(source, "r") as src:
 		with open(destination, "w") as dest:
 			dest.write(src.read())
@@ -46,7 +42,7 @@ def append2Dest(cmd):
 		raise Exception("invalid append: no destination")
 
 	source = cmd["source"]
-	destination = cmd["destination"]
+	destination = cmd["dest"]
 	backup(destination)
 	with open(source, "r") as src:
 		with open(destination, "a") as dest:
@@ -59,7 +55,7 @@ def prepend2Dest(cmd):
 		raise Exception("invalid prepend: no destination")
 
 	source = cmd["source"]
-	destination = cmd["destination"]
+	destination = cmd["dest"]
 	backup(destination)
 	content = ""
 	with open(source, "r") as src:
@@ -79,20 +75,26 @@ def evalCmd(cmd):
 	with open(source, "r") as src:
 		c = src.readline()
 		while len(c) > 0:
-			subprocess.call([c])
+			subprocess.call(c.strip().split(' '))
 			c = src.readline()
+
+supported_actions = {
+	"add": add2Dest,
+	"append": append2Dest,
+	"prepend": prepend2Dest,
+	"eval": evalCmd,
+}
 
 def main(mfilename):
 	with open(mfilename, "r") as mfile:
 		mappings = yaml.load(mfile)
-		print(mappings)
-		# for cmd in mappings:
-		# 	if "action" not in cmd:
-		# 		raise Exception("invalid mapping: no action")
-		# 	action = cmd["action"]
-		# 	if action not in supported_actions:
-		# 		raise Exception("unsupported action %s" % action)
-		# 	supported_actions[action](cmd)
+		for cmd in mappings:
+			if "action" not in cmd:
+				raise Exception("invalid mapping: no action")
+			action = cmd["action"]
+			if action not in supported_actions:
+				raise Exception("unsupported action %s" % action)
+			supported_actions[action](cmd)
 
 if __name__ == "__main__":
 	if len(sys.argv) < 2:

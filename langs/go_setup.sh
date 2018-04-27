@@ -5,26 +5,27 @@
 #
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-source $THIS_DIR/../utils/common.sh
+source "$THIS_DIR/../utils/common.sh"
 
 root_check
 
-apt install -y software-properties-common
+set -e
+
+apt-get update
+apt-get install -y \
+    software-properties-common
 add-apt-repository -y ppa:hnakamur/golang-1.10
-apt update
-apt install -y golang-go golang-1.10-doc
+apt-get update
+apt-get install -y golang-go golang-1.10-doc
 
 mkdir -p $HOME/Developer/go/bin
 mkdir -p $HOME/Developer/go/pkg
 mkdir -p $HOME/Developer/go/src
 
-request_save_profile "export GOPATH=\$HOME/Developer/go\nexport PATH=\$PATH:\$GOPATH/bin"
+export GOPATH="$HOME/Developer/go"
+export PATH="$GOPATH/bin:$PATH"
+request_save_profile "export GOPATH=\"\$HOME/Developer/go\"\nexport PATH=\"\$GOPATH/bin:\$PATH\""
 
-source ~/.bashrc
 if [ -z $(get_version "go version") ]; then
     exit 1
 fi
-
-add-apt-repository -y ppa:masterminds/glide
-apt-get update
-apt-get install -y glide

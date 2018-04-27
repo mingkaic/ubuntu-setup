@@ -5,7 +5,7 @@
 #
 
 function timestamp {
-  date +"%T"
+	date +"%T"
 }
 
 function root_check {
@@ -29,18 +29,20 @@ function meets_version {
 }
 
 function get_version {
-	eval "$1" | grep -E -o -m 1 "([0-9]{1,}\.)+[0-9]{1,}"
+	eval "$@" | grep -Eo -m 1 "([0-9]{1,}\.)+[0-9]{1,}"
 }
 
 function request_save_profile {
 	backup ~/.bashrc bashrc
-	save_profile $@
+	save_profile "$@"
 }
 
 function save_profile {
-	printf $@ >> ~/.bashrc
+	printf "$@\n" >> ~/.bashrc
 }
 
 function backup {
-	cp $1 $HOME/cfg-backup/$2-$(timestamp)
+	if [ ! -z "$CFG_BACKUP" ]; then
+		cp $1 $CFG_BACKUP/$2-$(timestamp)
+	fi
 }

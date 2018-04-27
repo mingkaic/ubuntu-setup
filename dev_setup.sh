@@ -5,12 +5,15 @@
 #
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-source $THIS_DIR/utils/common.sh
+source "$THIS_DIR/utils/common.sh"
 
 root_check
+
+set -e
 
 mkdir -p $HOME/Developer
 mkdir -p $HOME/Tools
 mkdir -p $HOME/cfg-backup
 
-request_save_profile "export CFG_BACKUP=\$HOME/cfg-backup"
+export CFG_BACKUP=$HOME/cfg-backup
+request_save_profile "export CFG_BACKUP=\"\$HOME/cfg-backup\""

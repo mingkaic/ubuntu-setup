@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
+#
+# purpose:
+# this script install boost
+#
 
-wget 'https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2/download'
-tar -xf download
+THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
+source "$THIS_DIR/../utils/common.sh"
 
-cd boost_1_64_0
-./bootstrap.sh
-./bjam install
-ldconfig
+root_check
+
+set -e
+
+apt-get update
+apt-get install -y libboost-all-dev
