@@ -9,6 +9,9 @@ source "$THIS_DIR/../../utils/common.sh"
 
 root_check
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 if [ -z $(get_version "node -v") ] && \
     [ -z $(get_version "nvm --version") ]; then
     echo "node must be installed"
