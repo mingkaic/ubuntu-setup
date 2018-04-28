@@ -1,0 +1,7 @@
+FROM ubuntu:16.04
+
+RUN mkdir -p /tmp/setup/tools
+COPY ./tools/valgrind_setup.sh /tmp/setup/tools
+COPY ./utils /tmp/setup/utils
+
+RUN bash /tmp/setup/tools/valgrind_setup.sh

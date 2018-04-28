@@ -29,7 +29,7 @@ function meets_version {
 }
 
 function get_version {
-	eval "$@" | grep -Eo -m 1 "([0-9]{1,}\.)+[0-9]{1,}"
+	eval "$@" | grep -Eo -m 1 "([0-9]{1,}\.)+[0-9]{1,}" | head -1
 }
 
 function request_save_profile {

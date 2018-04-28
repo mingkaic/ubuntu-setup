@@ -10,16 +10,7 @@ source "$THIS_DIR/../utils/common.sh"
 root_check
 
 apt-get update
-apt-get install -y \
-    git make \
-    build-essential \
-    libssl-dev \
-    python-pip \
-	python-dev \
-    zlib1g-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev
+apt-get install -y python-dev python-pip
 
 easy_install pip
 

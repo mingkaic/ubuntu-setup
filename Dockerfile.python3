@@ -1,0 +1,7 @@
+FROM ubuntu:16.04
+
+RUN mkdir -p /tmp/setup/langs
+COPY ./langs/python3_setup.sh /tmp/setup/langs
+COPY ./utils /tmp/setup/utils
+
+RUN bash /tmp/setup/langs/python3_setup.sh

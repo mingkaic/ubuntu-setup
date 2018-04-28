@@ -17,7 +17,17 @@ fi
 set -e
 
 apt-get update
-apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm git
+apt-get install -y \
+    git make \
+    build-essential \
+    libssl-dev \ 
+    zlib1g-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    wget \
+    curl \
+    llvm
 
 yes | pip install virtualenvwrapper
 
