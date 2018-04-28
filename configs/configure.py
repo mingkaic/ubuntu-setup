@@ -16,9 +16,9 @@ def confirmPath(path):
 def backup(path):
 	if not (os.path.exists(BACKUP_DIR) and os.path.exists(path)):
 		return # don't backup
-	dest = os.path.join(BACKUP_DIR, os.path.basename(path) + str(time.time()))
+	destPath = os.path.join(BACKUP_DIR, os.path.basename(path) + str(time.time()))
 	with open(path, "r") as src:
-		with open(dest, "w") as dest:
+		with open(destPath, "w") as dest:
 			dest.write(src.read())
 
 def add2Dest(cmd):
@@ -46,6 +46,7 @@ def append2Dest(cmd):
 	backup(destination)
 	with open(source, "r") as src:
 		with open(destination, "a") as dest:
+			dest.write('\n')
 			dest.write(src.read())
 	
 def prepend2Dest(cmd):
@@ -57,12 +58,12 @@ def prepend2Dest(cmd):
 	source = cmd["source"]
 	destination = cmd["dest"]
 	backup(destination)
-	content = ""
+	content = ''
 	with open(source, "r") as src:
 		content = src.read()
 
 	with open(destination, "r") as dest:
-		content = content + dest.read()
+		content = content + '\n' + dest.read()
 
 	with open(destination, "w") as dest:
 		dest.write(content)
@@ -73,10 +74,9 @@ def evalCmd(cmd):
 
 	source = cmd["source"]
 	with open(source, "r") as src:
-		c = src.readline()
-		while len(c) > 0:
-			subprocess.call(c.strip().split(' '))
-			c = src.readline()
+		for c in src.readlines():
+			if len(c) > 0:
+				subprocess.call(c.strip().split(' '))
 
 supported_actions = {
 	"add": add2Dest,
