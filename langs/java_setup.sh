@@ -17,11 +17,10 @@ apt-get install -y \
     debconf-utils
 apt-add-repository -y ppa:webupd8team/java
 apt-get update
-echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
-apt-get install -y oracle-java8-installer
+apt-get install -y openjdk-8-jdk
 
-export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
-request_save_profile "export JAVA_HOME=\"/usr/lib/jvm/java-8-oracle\""
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+request_save_profile "export JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-amd64\""
 
 if [ -z $(get_version "java -version 2>&1 > /dev/null") ]; then
     exit 1
