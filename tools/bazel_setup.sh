@@ -18,8 +18,7 @@ apt-get install -y \
     g++ \
     zlib1g-dev \
     unzip \
-    wget \
-    python
+    wget
 wget https://github.com/bazelbuild/bazel/releases/download/0.28.0/$INSTALLER -O $TMP_INSTALLER
 
 chmod +x $TMP_INSTALLER
