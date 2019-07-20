@@ -17,7 +17,7 @@ apt-get install -y python3.6 python3-pip python3.6-dev
 
 python3 --version
 meets_version "3.0.0" $(get_version "python3 --version 2>&1") exit 1
-ln -sf python3 python
+cp /usr/bin/python3 /usr/bin/python
 
 if [ -z $(get_version "pip3 -V") ]; then
     exit 1
