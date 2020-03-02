@@ -1,0 +1,13 @@
+FROM mkaichen/ubuntu-setup:bazel-ubuntu18
+
+COPY ./langs/clang_setup.sh /tmp/setup/langs
+COPY ./tools/valgrind_setup.sh /tmp/setup/tools
+
+RUN bash /tmp/setup/langs/clang_setup.sh
+RUN bash /tmp/setup/tools/valgrind_setup.sh
+
+RUN apt-get update
+RUN apt-get install -y make libc6-dbg lcov curl git;
+
+RUN cp /usr/bin/python3 /usr/bin/python
+RUN cp /usr/bin/pip3 /usr/bin/pip

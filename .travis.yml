@@ -5,7 +5,7 @@ services:
 
 jobs:
   include:
-    - stage: build docker image
+    - stage: build docker test image
       script:
         - git checkout ${TRAVIS_BRANCH}
         - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
@@ -16,6 +16,13 @@ jobs:
       script:
         - docker run -e COVERALLS_TOKEN=${COVERALLS_TOKEN}
           --rm $DOCKER_USERNAME/ubuntu-setup-test:latest
+    - stage: build and deploy images
+      script:
+        - git checkout ${TRAVIS_BRANCH}
+        - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+        - make
+        - docker images
+        - make REPO=$DOCKER_USERNAME push
 
 notifications:
   email:

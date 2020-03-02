@@ -7,7 +7,7 @@ root_check
 
 set -e
 
-INSTALLER=bazel-0.28.0-installer-linux-x86_64.sh
+INSTALLER=bazel-2.1.0-installer-linux-x86_64.sh
 TMP_INSTALLER=/tmp/$INSTALLER
 
 # dependencies
@@ -19,7 +19,7 @@ apt-get install -y \
     zlib1g-dev \
     unzip \
     wget
-wget https://github.com/bazelbuild/bazel/releases/download/0.28.0/$INSTALLER -O $TMP_INSTALLER
+wget https://github.com/bazelbuild/bazel/releases/download/2.1.0/$INSTALLER -O $TMP_INSTALLER
 
 chmod +x $TMP_INSTALLER
 $TMP_INSTALLER

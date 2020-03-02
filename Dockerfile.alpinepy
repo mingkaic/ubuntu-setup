@@ -1,0 +1,7 @@
+FROM alpine:latest
+
+RUN mkdir -p /tmp/setup/langs
+COPY ./alpine/python_setup.sh /tmp/setup/langs
+COPY ./utils /tmp/setup/utils
+
+RUN sh /tmp/setup/langs/python_setup.sh
