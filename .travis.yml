@@ -20,7 +20,7 @@ jobs:
       script:
         - git checkout ${TRAVIS_BRANCH}
         - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-        - make
+        - make REPO=$DOCKER_USERNAME
         - docker images
         - make REPO=$DOCKER_USERNAME push
 
