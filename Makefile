@@ -14,7 +14,7 @@ build_bzl_ubuntu18:
 build_bzl_cpp: build_bzl_ubuntu18
 	docker build -t $(REPO)/bazel_cpp:latest -f Dockerfile.bazelcpp .
 
-push: push_alpinepy push_bzl_ubuntu18 build_bzl_cpp
+push: push_alpinepy push_bzl_ubuntu18 push_bzl_cpp
 
 .PHONY=push_alpinepy
 push_alpinepy:
