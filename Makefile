@@ -11,7 +11,7 @@ build_bzl_ubuntu18:
 	docker build -t mkaichen/ubuntu-setup:bazel-ubuntu18 -f Dockerfile.ubuntu-18-bazel .
 
 .PHONY=build_bzl_cpp
-build_bzl_cpp: bazel_ubuntu18
+build_bzl_cpp: build_bzl_ubuntu18
 	docker build -t mkaichen/bazel_cpp:latest -f Dockerfile.bazelcpp .
 
 push: push_alpinepy push_bzl_ubuntu18 build_bzl_cpp
