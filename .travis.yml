@@ -9,29 +9,31 @@ jobs:
       script:
         - git checkout ${TRAVIS_BRANCH}
         - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-        - docker build -t $DOCKER_USERNAME/ubuntu-setup-test:latest -f Dockerfile.test .
+        - make IMAGE_REPO=$DOCKER_USERNAME IMAGE_TAG=travis-${TRAVIS_COMMIT} build_test_image
         - docker images
-        - docker push $DOCKER_USERNAME/ubuntu-setup-test:latest
+        - make IMAGE_REPO=$DOCKER_USERNAME IMAGE_TAG=travis-${TRAVIS_COMMIT} push_test_image
     - stage: test
       script:
         - docker run -e COVERALLS_TOKEN=${COVERALLS_TOKEN}
-          --rm $DOCKER_USERNAME/ubuntu-setup-test:latest
+          --rm ${DOCKER_USERNAME}/ubuntu-setup-test:travis-${TRAVIS_COMMIT}
     - stage: build and deploy images
       script:
         - git checkout ${TRAVIS_BRANCH}
         - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-        - make REPO=$DOCKER_USERNAME
+        - make IMAGE_REPO=${DOCKER_USERNAME} IMAGE_TAG=${TRAVIS_COMMIT}
         - docker images
-        - make REPO=$DOCKER_USERNAME push
+        - make IMAGE_REPO=${DOCKER_USERNAME} IMAGE_TAG=${TRAVIS_COMMIT} push
 
 notifications:
-  email:
-    recipients:
-      - mingkaichen2009@gmail.com
-    on_success: never
-    on_failure: always
+  email: false
+
+branches:
+  except:
+  - legacy
 
 # safelist
 branches:
   only:
   - master
+  - /experimental(-.*)?/
+  - stable

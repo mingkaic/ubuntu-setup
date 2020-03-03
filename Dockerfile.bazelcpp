@@ -1,9 +1,6 @@
-FROM mkaichen/ubuntu-setup:bazel-ubuntu18
+FROM mkaichen/bazel_ubuntu18:latest
 
-COPY ./langs/clang_setup.sh /tmp/setup/langs
 COPY ./tools/valgrind_setup.sh /tmp/setup/tools
-
-RUN bash /tmp/setup/langs/clang_setup.sh
 RUN bash /tmp/setup/tools/valgrind_setup.sh
 
 RUN apt-get update

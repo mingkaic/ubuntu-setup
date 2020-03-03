@@ -1,29 +1,39 @@
-REPO=mkaichen
+IMAGE_REPO := mkaichen
+IMAGE_TAG := latest
 
 all: build_alpinepy build_bzl_ubuntu18 build_bzl_cpp
 
-.PHONY=build_alpinepy
+.PHONY: build_test_image
+build_test_image:
+	docker build -t ${IMAGE_REPO}/ubuntu-setup-test:${IMAGE_TAG} -f Dockerfile.test .
+
+.PHONY: build_alpinepy
 build_alpinepy:
-	docker build -t $(REPO)/alpinepy:latest -f Dockerfile.alpinepy .
+	docker build -t ${IMAGE_REPO}/alpinepy:${IMAGE_TAG} -f Dockerfile.alpinepy .
 
-.PHONY=build_bzl_ubuntu18
+.PHONY: build_bzl_ubuntu18
 build_bzl_ubuntu18:
-	docker build -t $(REPO)/ubuntu-setup:bazel-ubuntu18 -f Dockerfile.ubuntu-18-bazel .
+	docker build -t ${IMAGE_REPO}/bazel_ubuntu18:${IMAGE_TAG} -f Dockerfile.ubuntu-18-bazel .
+	docker tag ${IMAGE_REPO}/bazel_ubuntu18:${IMAGE_TAG} ${IMAGE_REPO}/bazel_ubuntu18:latest
 
-.PHONY=build_bzl_cpp
+.PHONY: build_bzl_cpp
 build_bzl_cpp: build_bzl_ubuntu18
-	docker build -t $(REPO)/bazel_cpp:latest -f Dockerfile.bazelcpp .
+	docker build -t ${IMAGE_REPO}/bazel_cpp:${IMAGE_TAG} -f Dockerfile.bazelcpp .
 
 push: push_alpinepy push_bzl_ubuntu18 push_bzl_cpp
 
-.PHONY=push_alpinepy
+.PHONY: push_test_image
+push_test_image:
+	docker push ${IMAGE_REPO}/ubuntu-setup-test:${IMAGE_TAG}
+
+.PHONY: push_alpinepy
 push_alpinepy:
-	docker push $(REPO)/alpinepy:latest
+	docker push ${IMAGE_REPO}/alpinepy:${IMAGE_TAG}
 
-.PHONY=push_bzl_ubuntu18
+.PHONY: push_bzl_ubuntu18
 push_bzl_ubuntu18:
-	docker push $(REPO)/ubuntu-setup:bazel-ubuntu18
+	docker push ${IMAGE_REPO}/bazel_ubuntu18:${IMAGE_TAG}
 
-.PHONY=push_bzl_cpp
+.PHONY: push_bzl_cpp
 push_bzl_cpp:
-	docker push $(REPO)/bazel_cpp:latest
+	docker push ${IMAGE_REPO}/bazel_cpp:${IMAGE_TAG}
