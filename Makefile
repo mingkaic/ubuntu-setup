@@ -20,7 +20,7 @@ build_bzl_ubuntu18:
 build_bzl_cpp: build_bzl_ubuntu18
 	docker build -t ${IMAGE_REPO}/bazel_cpp:${IMAGE_TAG} -f Dockerfile.bazelcpp .
 
-push: push_alpinepy push_bzl_ubuntu18 push_bzl_cpp
+push: push_bzl_ubuntu18 push_bzl_cpp # push_alpinepy
 
 .PHONY: push_test_image
 push_test_image:
