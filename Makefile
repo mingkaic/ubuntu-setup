@@ -1,7 +1,7 @@
 IMAGE_REPO := mkaichen
 IMAGE_TAG := latest
 
-all: build_alpinepy build_bzl_ubuntu18 build_bzl_cpp
+all: build_bzl_ubuntu18 build_bzl_cpp # build_alpinepy
 
 .PHONY: build_test_image
 build_test_image:
