@@ -4,7 +4,7 @@ IMAGE_TAG := latest
 all: build_all push_all
 
 .PHONY: build_all
-build_all: build_bzl_ubuntu18 build_bzl_cpp # build_alpinepy
+build_all: build_test_image build_bzl_ubuntu18 build_bzl_cpp # build_alpinepy
 
 .PHONY: build_test_image
 build_test_image:
