@@ -8,9 +8,8 @@ apt-get update
 apt-get install -y software-properties-common
 add-apt-repository -y ppa:deadsnakes/ppa
 apt-get update
-apt-get install -y python3.6 python-pip
+apt-get install -y python3.6 python3-pip
 
-easy_install pip
-pip install pyyaml
+pip3 install pyyaml
 
 cat $THIS_DIR/orig_pend | tee /tmp/prepend_test /tmp/append_test > /dev/null

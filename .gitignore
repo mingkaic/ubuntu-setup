@@ -1,4 +1,4 @@
 .*
 !.gitignore
 !.dockerignore
-!.travis.yml
+!.circleci

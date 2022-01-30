@@ -8,3 +8,7 @@ RUN apt-get install -y make libc6-dbg lcov curl git;
 
 RUN cp /usr/bin/python3 /usr/bin/python
 RUN cp /usr/bin/pip3 /usr/bin/pip
+
+# coverall-lcov install
+RUN apt-get install -y ruby
+RUN gem install coveralls-lcov

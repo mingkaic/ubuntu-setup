@@ -7,5 +7,3 @@
 - action: prepend
   source: tests/prepend_test
   dest: /tmp/prepend_test
-- action: eval
-  source: tests/eval_test

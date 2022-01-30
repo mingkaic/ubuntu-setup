@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 ENV WDIR /tmp/test
 WORKDIR $WDIR
@@ -13,6 +13,7 @@ RUN bash dev_setup.sh
 COPY tests $WDIR/tests
 RUN bash tests/prep.sh
 COPY configs $WDIR/configs
-RUN python configs/configure.py tests/fake.yaml
+RUN python3 configs/configure.py tests/fake.yaml
+RUN bash tests/eval_test.sh
 
-#CMD [ "python", "tests/verify.py" ]
+CMD [ "python3", "tests/verify.py" ]
