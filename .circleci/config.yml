@@ -38,10 +38,40 @@ jobs:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
             - /caches/app.tar
+  test:
+    working_directory: /app
+    docker:
+      - image: docker:17.05.0-ce-git
+    steps:
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/app.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/app.tar | true
       - run:
           name: Run tests
           command: |
             make test_image
+  deploy:
+    working_directory: /app
+    docker:
+      - image: docker:17.05.0-ce-git
+    steps:
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/app.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/app.tar | true
       - deploy:
           name: Push Docker image
           command: |
@@ -52,14 +82,16 @@ jobs:
 
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  test-setups-workflow:
-    triggers:
-     - schedule:
-         # Every Sunday
-         cron: "0 0 * * 0"
-         filters:
-           branches:
-             only:
-               - main
+  weekly-setups-updates:
+    when:
+    and:
+      - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+      - equal: [ "weekly build", << pipeline.schedule.name >> ]
     jobs:
       - build
+      - deploy
+      - test
+  merge-setups:
+    jobs:
+      - build
+      - test
