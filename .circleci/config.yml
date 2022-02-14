@@ -39,8 +39,6 @@ jobs:
           paths:
             - /caches/app.tar
   test:
-    requires:
-      - build
     working_directory: /app
     docker:
       - image: docker:17.05.0-ce-git
@@ -64,8 +62,6 @@ jobs:
           command: |
             make test_image
   deploy:
-    requires:
-      - build
     working_directory: /app
     docker:
       - image: docker:17.05.0-ce-git
@@ -97,9 +93,15 @@ workflows:
       - equal: [ "weekly build", << pipeline.schedule.name >> ]
     jobs:
       - build
-      - deploy
-      - test
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - build
   merge-setups:
     jobs:
       - build
-      - test
+      - test:
+          requires:
+            - build
