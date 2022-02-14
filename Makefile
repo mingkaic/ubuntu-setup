@@ -4,7 +4,7 @@ IMAGE_TAG := latest
 all: build_all push_all
 
 .PHONY: build_all
-build_all: build_test_image build_bzl_ubuntu18 build_bzl_cpp # build_alpinepy
+build_all: build_test_image build_bzl_ubuntu18 build_bzl_cpp build_conan #build_alpinepy
 
 .PHONY: build_test_image
 build_test_image:
@@ -22,6 +22,10 @@ build_bzl_ubuntu18:
 .PHONY: build_bzl_cpp
 build_bzl_cpp: build_bzl_ubuntu18
 	docker build -t ${IMAGE_REPO}/bazel_cpp:${IMAGE_TAG} -f docker/Dockerfile.bazelcpp .
+
+.PHONY: build_conan
+build_conan:
+	docker build -t ${IMAGE_REPO}/bionic_conan_cmake:${IMAGE_TAG} -f docker/Dockerfile.conan .
 
 .PHONY: test_image
 test_image:

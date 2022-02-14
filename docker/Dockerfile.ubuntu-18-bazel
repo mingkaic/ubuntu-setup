@@ -1,3 +1,4 @@
+# mkaichen/bazel_ubuntu18
 FROM ubuntu:18.04
 
 RUN mkdir -p /tmp/setup/tools

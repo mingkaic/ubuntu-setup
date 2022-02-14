@@ -33,6 +33,7 @@ jobs:
               $DOCKER_USERNAME/ubuntu-setup-test:latest \
               $DOCKER_USERNAME/bazel_ubuntu18:latest \
               $DOCKER_USERNAME/bazel_cpp:latest
+              $DOCKER_USERNAME/bionic_conan_cmake:latest
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
@@ -48,3 +49,17 @@ jobs:
               docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
               make push_all
             fi
+
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  test-setups-workflow:
+    triggers:
+     - schedule:
+         # Every Sunday
+         cron: "0 0 * * 0"
+         filters:
+           branches:
+             only:
+               - main
+    jobs:
+      - build

@@ -1,3 +1,4 @@
+# mkaichen/bazel_cpp
 FROM mkaichen/bazel_ubuntu18:latest
 
 COPY ./tools/valgrind_setup.sh /tmp/setup/tools
