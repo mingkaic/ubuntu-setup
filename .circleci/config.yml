@@ -94,7 +94,6 @@ workflows:
     when:
     and:
       - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-      - equal: [ "weekly build", << pipeline.schedule.name >> ]
     jobs:
       - build
       - test:
